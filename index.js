@@ -1,0 +1,1 @@
+module.exports = {view: require('./lib/views/incomingcall'), model: require('./lib/models/incomingcall')};
