@@ -31,13 +31,13 @@
       text-align right
 
 
-  .started .holdAndAnswerButton,
-  .started .dropAndAnswerButton,
-  .client:not(.started) .acceptIncomingCall
+  .callPopup.started .holdAndAnswerButton,
+  .callPopup.started .dropAndAnswerButton,
+  .callPopup:not(.started) .acceptIncomingCall
     {fadeIn}
 
-  .incomingcall-shown .callPopup
+  .callPopup.incomingcall-shown
     {fadeInPopup}
 
-  .client:not(.incomingcall-shown) .callPopup
+  .callPopup:not(.incomingcall-shown)
     {fadeOut}
