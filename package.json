@@ -1,6 +1,6 @@
 {
   "name": "webrtc-incomingcall",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "incomingcall module for webrtc client",
   "main": "index.js",
   "scripts": {
