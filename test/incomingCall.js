@@ -31,7 +31,7 @@ describe('incomingcall', function() {
     expect(answerOptions).toEqual("", "Answer should not have been called");
     expect(incomingcallview.incomingCallName.text()).toEqual("Incoming DisplayName");
     expect(incomingcallview.incomingCallUser.text()).toEqual("Incoming User");
-    expect(incomingcallview.visible).toEqual(true);
+    expect(incomingcall.visible).toEqual(true);
     testUA.isVisible(incomingcallview.callPopup, true);
     testUA.isVisible(incomingcallview.dropAndAnswerButton, false);
     testUA.isVisible(incomingcallview.holdAndAnswerButton, false);
