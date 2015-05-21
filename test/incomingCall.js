@@ -11,7 +11,7 @@ describe('incomingcall', function() {
     testUA.createCore('configuration', config);
     testUA.createCore('sipstack', config);
     testUA.createModelAndView('incomingcall', {incomingcall: require('../')});
-    eventbus = bdsft_client_instances.eventbus_test;
+    eventbus = bdsft_client_instances.test.eventbus;
     testUA.mockWebRTC();
   });
   afterEach(function(){
