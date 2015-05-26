@@ -29,12 +29,12 @@ describe('incomingcall', function() {
     }
     testUA.incomingCall(session);
     expect(answerOptions).toEqual("", "Answer should not have been called");
-    expect(incomingcallview.incomingCallName.text()).toEqual("Incoming DisplayName");
-    expect(incomingcallview.incomingCallUser.text()).toEqual("Incoming User");
+    expect(incomingcallview.displayName.text()).toEqual("Incoming DisplayName");
+    expect(incomingcallview.user.text()).toEqual("Incoming User");
     expect(incomingcall.visible).toEqual(true);
     testUA.isVisible(incomingcallview.callPopup, true);
-    testUA.isVisible(incomingcallview.dropAndAnswerButton, false);
-    testUA.isVisible(incomingcallview.holdAndAnswerButton, false);
+    testUA.isVisible(incomingcallview.dropAndAcceptButton, false);
+    testUA.isVisible(incomingcallview.holdAndAcceptButton, false);
     testUA.isVisible(incomingcallview.acceptIncomingCall, true);
   });
 
@@ -81,8 +81,8 @@ describe('incomingcall', function() {
   //   expect(incomingcallview.incomingCallName.text()).toEqual("Incoming DisplayName");
   //   expect(incomingcallview.incomingCallUser.text()).toEqual("Incoming User");
   //   testUA.isVisible(incomingcallview.callPopup, true);
-  //   testUA.isVisible(incomingcallview.dropAndAnswerButton, true);
-  //   testUA.isVisible(incomingcallview.holdAndAnswerButton, true);
+  //   testUA.isVisible(incomingcallview.dropAndAcceptButton, true);
+  //   testUA.isVisible(incomingcallview.holdAndAcceptButton, true);
   //   testUA.isVisible(incomingcallview.acceptIncomingCall, false);
   // });
 
@@ -101,7 +101,7 @@ describe('incomingcall', function() {
 
     expect(sipstack.activeSession === outgoingSession).toEqual(true, "Outgoing session should be active");
     expect(sipstack.sessions.length).toEqual( 2);
-    incomingcallview.holdAndAnswerButton.trigger("click");
+    incomingcallview.holdAndAcceptButton.trigger("click");
     expect(sipstack.activeSession === incomingSession).toEqual(true, "Incoming session should be active");
     expect(sipstack.sessions.length).toEqual( 2);
     expect(answerOptions).toNotEqual("", "Answer should have been called");
@@ -115,7 +115,7 @@ describe('incomingcall', function() {
     var incomingSession = testUA.incomingSession();
     testUA.incomingCall(incomingSession);
 
-    incomingcallview.holdAndAnswerButton.trigger("click");
+    incomingcallview.holdAndAcceptButton.trigger("click");
     expect(sipstack.activeSession === incomingSession).toEqual(true, "Incoming session should be active");
     eventbus.endCall();
     expect(sipstack.activeSession === outgoingSession).toEqual(true, "Outgoing session should be active again");
@@ -136,7 +136,7 @@ describe('incomingcall', function() {
 
     expect(sipstack.activeSession === outgoingSession).toEqual(true, "Outgoing session should be active");
     expect(sipstack.sessions.length).toEqual( 2);
-    incomingcallview.dropAndAnswerButton.trigger("click");
+    incomingcallview.dropAndAcceptButton.trigger("click");
     expect(sipstack.activeSession === incomingSession).toEqual(true, "Incoming session should be active");
     expect(sipstack.sessions.length).toEqual( 1);
     expect(answerOptions).toNotEqual("", "Answer should have been called");
@@ -150,8 +150,8 @@ describe('incomingcall', function() {
     testUA.incomingCall();
     testUA.isVisible(incomingcallview.callPopup, true);
     testUA.isVisible(incomingcallview.acceptIncomingCall, true);
-    testUA.isVisible(incomingcallview.dropAndAnswerButton, false);
-    testUA.isVisible(incomingcallview.holdAndAnswerButton, false);
+    testUA.isVisible(incomingcallview.dropAndAcceptButton, false);
+    testUA.isVisible(incomingcallview.holdAndAcceptButton, false);
   });
   it('window.onbeforeunload', function() {
     testUA.connect();
