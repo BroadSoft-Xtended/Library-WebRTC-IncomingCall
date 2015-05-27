@@ -33,9 +33,9 @@ describe('incomingcall', function() {
     expect(incomingcallview.user.text()).toEqual("Incoming User");
     expect(incomingcall.visible).toEqual(true);
     testUA.isVisible(incomingcallview.callPopup, true);
-    testUA.isVisible(incomingcallview.dropAndAcceptButton, false);
-    testUA.isVisible(incomingcallview.holdAndAcceptButton, false);
-    testUA.isVisible(incomingcallview.acceptIncomingCall, true);
+    expect(incomingcallview.dropAndAcceptButton.css('display')).toEqual('none');
+    expect(incomingcallview.holdAndAcceptButton.css('display')).toEqual('none');
+    expect(incomingcallview.acceptIncomingCall.css('display')).toEqual('block');
   });
 
   it('incoming call and cancel', function() {
@@ -149,9 +149,9 @@ describe('incomingcall', function() {
     testUA.endCall();
     testUA.incomingCall();
     testUA.isVisible(incomingcallview.callPopup, true);
-    testUA.isVisible(incomingcallview.acceptIncomingCall, true);
-    testUA.isVisible(incomingcallview.dropAndAcceptButton, false);
-    testUA.isVisible(incomingcallview.holdAndAcceptButton, false);
+    expect(incomingcallview.dropAndAcceptButton.css('display')).toEqual('none');
+    expect(incomingcallview.holdAndAcceptButton.css('display')).toEqual('none');
+    expect(incomingcallview.acceptIncomingCall.css('display')).toEqual('block');
   });
   it('window.onbeforeunload', function() {
     testUA.connect();
