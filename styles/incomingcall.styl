@@ -5,11 +5,15 @@
     border 1px solid #3c3c3c
     box-shadow none
     border-radius 0
-    width 170px
-    height 137px
+    button
+      margin 10px
+      display none
     span
       color #999999
       font-size 22px
+    .col
+      display inline-block
+      vertical-align top
     .displayName
     .user
       display block
@@ -31,8 +35,9 @@
 
   .callPopup.started .holdAndAcceptButton,
   .callPopup.started .dropAndAcceptButton,
-  .callPopup:not(.started) .acceptIncomingCall
-    {fadeIn}
+  .callPopup:not(.started) .acceptIncomingCall,
+  .callPopup .rejectIncomingCall
+    display block
 
   .callPopup.incomingcall-shown
     {fadeInPopup}

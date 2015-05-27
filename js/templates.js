@@ -16,7 +16,7 @@
 
     // incomingcall.jade compiled template
     templatizer["incomingcall"] = function tmpl_incomingcall() {
-        return '<div class="bdsft-client"><div class="callPopup fadeable popup classes"><span class="incomingCallTitle">Incoming Call</span><span class="displayName"></span><span class="user"></span><div class="table"><div class="cell"><button type="button" class="fadeable acceptIncomingCall button">Accept</button><button type="button" class="fadeable holdAndAcceptButton button">Hold And Answer</button><button type="button" class="fadeable dropAndAcceptButton button">Drop And Answer</button></div><div id="rejectIncomingCallContainer" class="cell"><button type="button" class="rejectIncomingCall button">Reject</button></div></div></div></div>';
+        return '<div class="bdsft-client"><div class="callPopup fadeable popup classes centered"><span class="incomingCallTitle">Incoming Call</span><span class="displayName"></span><span class="user"></span><div><div class="col"><button type="button" class="acceptIncomingCall button">Accept</button><button type="button" class="holdAndAcceptButton button">Hold And Answer</button><button type="button" class="dropAndAcceptButton button">Drop And Answer</button></div><div id="rejectIncomingCallContainer" class="col"><button type="button" class="rejectIncomingCall button">Reject</button></div></div></div></div>';
     };
 
     return templatizer;
