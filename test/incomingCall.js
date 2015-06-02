@@ -7,9 +7,7 @@ describe('incomingcall', function() {
   before(function(){
     core = require('webrtc-core');
     testUA = core.testUA;
-    config = {};
-    testUA.createCore('configuration', config);
-    testUA.createCore('sipstack', config);
+    testUA.createCore('sipstack');
     testUA.createModelAndView('incomingcall', {incomingcall: require('../')});
     eventbus = bdsft_client_instances.test.eventbus;
     testUA.mockWebRTC();
@@ -20,7 +18,7 @@ describe('incomingcall', function() {
   });
 
   it('1st incoming call:', function() {
-    configuration.enableAutoAnswer = false;
+    sipstack.enableAutoAnswer = false;
     testUA.connect();
     var session = testUA.incomingSession();
     var answerOptions = "";
@@ -39,7 +37,7 @@ describe('incomingcall', function() {
   });
 
   it('incoming call and cancel', function() {
-    configuration.enableAutoAnswer = false;
+    sipstack.enableAutoAnswer = false;
     testUA.connect();
     var session = testUA.incomingSession();
     var answerOptions = "";
@@ -54,7 +52,7 @@ describe('incomingcall', function() {
   });
 
   // it('1st incoming call with enableAutoAnswer', function() {
-  //   configuration.enableAutoAnswer = true;
+  //   sipstack.enableAutoAnswer = true;
   //   testUA.connect();
   //   var session = testUA.incomingSession();
   //   var answerOptions = "";
@@ -68,7 +66,7 @@ describe('incomingcall', function() {
   // });
 
   // it('2nd incoming call with enableAutoAnswer', function() {
-  //   configuration.enableAutoAnswer = true;
+  //   sipstack.enableAutoAnswer = true;
   //   testUA.connect();
   //   testUA.startCall();
   //   var session = testUA.incomingSession();
@@ -87,7 +85,7 @@ describe('incomingcall', function() {
   // });
 
   it('2nd incoming call and hold and answer click', function() {
-    configuration.enableAutoAnswer = true;
+    sipstack.enableAutoAnswer = true;
     testUA.connect();
     var outgoingSession = testUA.outgoingSession();
     testUA.startCall(outgoingSession);
@@ -108,7 +106,7 @@ describe('incomingcall', function() {
   });
 
   it('2nd incoming call and hold and answer click and resume 1st call after 2nd ends', function() {
-    configuration.enableAutoAnswer = true;
+    sipstack.enableAutoAnswer = true;
     testUA.connect();
     var outgoingSession = testUA.outgoingSession();
     testUA.startCall(outgoingSession);
@@ -123,7 +121,7 @@ describe('incomingcall', function() {
   });
 
   it('2nd incoming call and drop and answer click', function() {
-    configuration.enableAutoAnswer = true;
+    sipstack.enableAutoAnswer = true;
     testUA.connect();
     var outgoingSession = testUA.outgoingSession();
     testUA.startCall(outgoingSession);
@@ -143,7 +141,7 @@ describe('incomingcall', function() {
   });
 
   it('call and hangup and incoming call', function() {
-    configuration.enableAutoAnswer = false;
+    sipstack.enableAutoAnswer = false;
     testUA.connect();
     testUA.startCall();
     testUA.endCall();
