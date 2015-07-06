@@ -1,10 +1,11 @@
-.bdsft-client
+.bdsft-webrtc
   .callPopup
     padding 0
     background #292929
     border 1px solid #3c3c3c
     box-shadow none
     border-radius 0
+    min-width 170px
     button
       margin 10px
       display none
@@ -27,20 +28,22 @@
       background #3c3c3c
       margin-bottom 18px
       color #E4E4E4
-    .rejectIncomingCall
+    .reject
       background #FF0000
-    #rejectIncomingCallContainer
+    #rejectContainer
       text-align right
 
 
-  .callPopup.started .holdAndAcceptButton,
-  .callPopup.started .dropAndAcceptButton,
-  .callPopup:not(.started) .acceptIncomingCall,
-  .callPopup .rejectIncomingCall
-    display block
+    &.started .holdAndAccept,
+    &.started .dropAndAccept,
+    &:not(.started) .accept,
+    & .reject
+      display block
 
-  .callPopup.incomingcall-shown
-    {fadeInPopup}
+    &.incomingcall-shown
+      {fadeInPopup}
 
-  .callPopup:not(.incomingcall-shown)
-    {fadeOut}
+    &:not(.incomingcall-shown),
+    &.failed
+      {fadeOut}
+      transition none
