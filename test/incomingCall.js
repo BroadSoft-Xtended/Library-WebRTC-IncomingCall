@@ -7,8 +7,14 @@ describe('incomingcall', function() {
   before(function(){
     core = require('webrtc-core');
     testUA = core.testUA;
-    testUA.createCore('sipstack');
-    testUA.createModelAndView('incomingcall', {incomingcall: require('../')});
+    testUA.createModelAndView('sipstack', {
+      sipstack: require('webrtc-sipstack')
+    });
+    testUA.createModelAndView('incomingcall', {
+      incomingcall: require('../'),
+      sipstack: require('webrtc-sipstack'),
+      sound: require('webrtc-sound')
+    });
     eventbus = bdsft_client_instances.test.eventbus;
     testUA.mockWebRTC();
   });
