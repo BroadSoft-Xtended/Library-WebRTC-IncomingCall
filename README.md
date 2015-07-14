@@ -4,7 +4,7 @@ Handles incoming calls.
 
 Model : bdsft_webrtc.default.incomingcall
 View : bdsft_webrtc.default.incomingcallview
-Dependencies : [SIP Stack](../sipstack), [Sound](../sound)
+Dependencies : [SIP Stack](https://github.com/BroadSoft-Xtended/Library-WebRTC-SIPStack), [Sound](https://github.com/BroadSoft-Xtended/Library-WebRTC-Sound)
 
 ## Elements
 <a name="elements"></a>

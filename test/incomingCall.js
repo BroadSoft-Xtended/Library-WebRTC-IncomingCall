@@ -1,42 +1,37 @@
-var jsdom = require('mocha-jsdom');
-expect = require('expect');
-jsdom({});
-
+test = require('../node_modules/webrtc-sipstack/test/includes/common')(require('../node_modules/webrtc-core/test/includes/common'));
 describe('incomingcall', function() {
 
   before(function(){
     core = require('webrtc-core');
-    testUA = core.testUA;
-    testUA.createModelAndView('sipstack', {
+    test.createModelAndView('sipstack', {
       sipstack: require('webrtc-sipstack')
     });
-    testUA.createModelAndView('incomingcall', {
+    test.createModelAndView('incomingcall', {
       incomingcall: require('../'),
       sipstack: require('webrtc-sipstack'),
       sound: require('webrtc-sound')
     });
     eventbus = bdsft_client_instances.test.eventbus;
-    testUA.mockWebRTC();
   });
   afterEach(function(){
     incomingcall.reject();
-    testUA.endCall();
+    test.endCall();
   });
 
   it('1st incoming call:', function() {
     sipstack.enableAutoAnswer = false;
-    testUA.connect();
-    var session = testUA.incomingSession();
+    test.connect();
+    var session = test.incomingSession();
     var answerOptions = "";
     session.answer = function(options) {
       answerOptions = options;
     }
-    testUA.incomingCall(session);
+    test.incomingCall(session);
     expect(answerOptions).toEqual("", "Answer should not have been called");
     expect(incomingcallview.displayName.text()).toEqual("Incoming DisplayName");
     expect(incomingcallview.user.text()).toEqual("Incoming User");
     expect(incomingcall.visible).toEqual(true);
-    testUA.isVisible(incomingcallview.view.find('.callPopup'), true);
+    test.isVisible(incomingcallview.view.find('.callPopup'), true);
     expect(incomingcallview.dropAndAccept.css('display')).toEqual('none');
     expect(incomingcallview.holdAndAccept.css('display')).toEqual('none');
     expect(incomingcallview.accept.css('display')).toEqual('block');
@@ -44,64 +39,64 @@ describe('incomingcall', function() {
 
   it('incoming call and cancel', function() {
     sipstack.enableAutoAnswer = false;
-    testUA.connect();
-    var session = testUA.incomingSession();
+    test.connect();
+    var session = test.incomingSession();
     var answerOptions = "";
     session.answer = function(options) {
       answerOptions = options;
     }
-    testUA.incomingCall(session);
+    test.incomingCall(session);
     expect(answerOptions).toEqual("", "Answer should NOT have been called");
-    testUA.isVisible(incomingcallview.view.find('.callPopup'), true);
-    session.failed('remote', null, core.exsip.C.causes.CANCELED);
-    testUA.isVisible(incomingcallview.view.find('.callPopup'), false);
+    test.isVisible(incomingcallview.view.find('.callPopup'), true);
+    session.failed('remote', null, 'Canceled');
+    test.isVisible(incomingcallview.view.find('.callPopup'), false);
   });
 
   // it('1st incoming call with enableAutoAnswer', function() {
   //   sipstack.enableAutoAnswer = true;
-  //   testUA.connect();
-  //   var session = testUA.incomingSession();
+  //   test.connect();
+  //   var session = test.incomingSession();
   //   var answerOptions = "";
   //   session.answer = function(options) {
   //     answerOptions = options;
   //   }
-  //   testUA.isVisible(incomingcallview.callPopup, false);
-  //   testUA.incomingCall(session);
+  //   test.isVisible(incomingcallview.callPopup, false);
+  //   test.incomingCall(session);
   //   expect(answerOptions).toNotEqual("", "Answer should have been called");
-  //   testUA.isVisible(incomingcallview.callPopup, false);
+  //   test.isVisible(incomingcallview.callPopup, false);
   // });
 
   // it('2nd incoming call with enableAutoAnswer', function() {
   //   sipstack.enableAutoAnswer = true;
-  //   testUA.connect();
-  //   testUA.startCall();
-  //   var session = testUA.incomingSession();
+  //   test.connect();
+  //   test.startCall();
+  //   var session = test.incomingSession();
   //   var answerOptions = "";
   //   session.answer = function(options) {
   //     answerOptions = options;
   //   }
-  //   testUA.incomingCall(session);
+  //   test.incomingCall(session);
   //   expect(answerOptions).toEqual("", "Answer should not have been called");
   //   expect(incomingcallview.incomingCallName.text()).toEqual("Incoming DisplayName");
   //   expect(incomingcallview.incomingCallUser.text()).toEqual("Incoming User");
-  //   testUA.isVisible(incomingcallview.callPopup, true);
-  //   testUA.isVisible(incomingcallview.dropAndAccept, true);
-  //   testUA.isVisible(incomingcallview.holdAndAccept, true);
-  //   testUA.isVisible(incomingcallview.accept, false);
+  //   test.isVisible(incomingcallview.callPopup, true);
+  //   test.isVisible(incomingcallview.dropAndAccept, true);
+  //   test.isVisible(incomingcallview.holdAndAccept, true);
+  //   test.isVisible(incomingcallview.accept, false);
   // });
 
   it('2nd incoming call and hold and answer click', function() {
     sipstack.enableAutoAnswer = true;
-    testUA.connect();
-    var outgoingSession = testUA.outgoingSession();
-    testUA.startCall(outgoingSession);
-    var incomingSession = testUA.incomingSession();
+    test.connect();
+    var outgoingSession = test.outgoingSession();
+    test.startCall(outgoingSession);
+    var incomingSession = test.incomingSession();
     var answerOptions = "";
     incomingSession.answer = function(options) {
       answerOptions = options;
       incomingSession.started('local');
     }
-    testUA.incomingCall(incomingSession);
+    test.incomingCall(incomingSession);
 
     expect(sipstack.activeSession === outgoingSession).toEqual(true, "Outgoing session should be active");
     expect(sipstack.sessions.length).toEqual( 2);
@@ -113,11 +108,11 @@ describe('incomingcall', function() {
 
   it('2nd incoming call and hold and answer click and resume 1st call after 2nd ends', function() {
     sipstack.enableAutoAnswer = true;
-    testUA.connect();
-    var outgoingSession = testUA.outgoingSession();
-    testUA.startCall(outgoingSession);
-    var incomingSession = testUA.incomingSession();
-    testUA.incomingCall(incomingSession);
+    test.connect();
+    var outgoingSession = test.outgoingSession();
+    test.startCall(outgoingSession);
+    var incomingSession = test.incomingSession();
+    test.incomingCall(incomingSession);
 
     incomingcallview.holdAndAccept.trigger("click");
     expect(sipstack.activeSession === incomingSession).toEqual(true, "Incoming session should be active");
@@ -128,15 +123,15 @@ describe('incomingcall', function() {
 
   it('2nd incoming call and drop and answer click', function() {
     sipstack.enableAutoAnswer = true;
-    testUA.connect();
-    var outgoingSession = testUA.outgoingSession();
-    testUA.startCall(outgoingSession);
-    var incomingSession = testUA.incomingSession();
+    test.connect();
+    var outgoingSession = test.outgoingSession();
+    test.startCall(outgoingSession);
+    var incomingSession = test.incomingSession();
     incomingSession.answer = function(options) {
       answerOptions = options;
       incomingSession.started('local');
     }
-    testUA.incomingCall(incomingSession);
+    test.incomingCall(incomingSession);
 
     expect(sipstack.activeSession === outgoingSession).toEqual(true, "Outgoing session should be active");
     expect(sipstack.sessions.length).toEqual( 2);
@@ -148,23 +143,23 @@ describe('incomingcall', function() {
 
   it('call and hangup and incoming call', function() {
     sipstack.enableAutoAnswer = false;
-    testUA.connect();
-    testUA.startCall();
-    testUA.endCall();
-    testUA.incomingCall();
-    testUA.isVisible(incomingcallview.view.find('.callPopup'), true);
+    test.connect();
+    test.startCall();
+    test.endCall();
+    test.incomingCall();
+    test.isVisible(incomingcallview.view.find('.callPopup'), true);
     expect(incomingcallview.dropAndAccept.css('display')).toEqual('none');
     expect(incomingcallview.holdAndAccept.css('display')).toEqual('none');
     expect(incomingcallview.accept.css('display')).toEqual('block');
   });
   it('window.onbeforeunload', function() {
-    testUA.connect();
-    var session = testUA.incomingSession();
+    test.connect();
+    var session = test.incomingSession();
     var terminated = false;
     session.terminate = function(options) {
       terminated = true;
     }
-    testUA.incomingCall(session);
+    test.incomingCall(session);
     window.onbeforeunload();
     expect(terminated).toEqual(true, "Should terminate the incoming session");
   });
