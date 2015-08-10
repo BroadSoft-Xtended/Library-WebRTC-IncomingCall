@@ -36,7 +36,8 @@
 
     &.started .holdAndAccept,
     &.started .dropAndAccept,
-    &:not(.started) .accept,
+    &:not(.started).hasRemoteVideo .accept,
+    &:not(.started) .acceptAudio,
     & .reject
       display block
 

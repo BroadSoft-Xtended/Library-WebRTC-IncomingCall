@@ -26,6 +26,7 @@ describe('incomingcall', function() {
     session.answer = function(options) {
       answerOptions = options;
     }
+    session.hasRemoteVideo = function(){ return true; }
     test.incomingCall(session);
     expect(answerOptions).toEqual("", "Answer should not have been called");
     expect(incomingcallview.displayName.text()).toEqual("Incoming DisplayName");
@@ -34,7 +35,8 @@ describe('incomingcall', function() {
     test.isVisible(incomingcallview.view.find('.callPopup'), true);
     expect(incomingcallview.dropAndAccept.css('display')).toEqual('none');
     expect(incomingcallview.holdAndAccept.css('display')).toEqual('none');
-    expect(incomingcallview.accept.css('display')).toEqual('block');
+    test.equalCss(incomingcallview.acceptAudio, 'display', 'block');
+    test.equalCss(incomingcallview.accept, 'display', 'block');
   });
 
   it('incoming call and cancel', function() {
@@ -163,6 +165,16 @@ describe('incomingcall', function() {
     window.onbeforeunload();
     expect(terminated).toEqual(true, "Should terminate the incoming session");
   });
+
+  it('audio only incoming call', function() {
+    test.connect();
+    var session = test.incomingSession();
+    session.hasRemoteVideo = function(){ return false; }
+    test.incomingCall(session);
+    test.equalCss(incomingcallview.acceptAudio, 'display', 'block');
+    test.equalCss(incomingcallview.accept, 'display', 'none');
+  });
+
 
 
 });
