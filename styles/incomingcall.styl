@@ -1,35 +1,44 @@
 .bdsft-webrtc
   .callPopup
     padding 0
-    background #292929
-    border 1px solid #3c3c3c
+    background #FBFBFB
+    border 1px solid #D6D6D6
     box-shadow none
     border-radius 0
-    min-width 170px
+    min-width 290px
+    padding-bottom 8px
     button
       margin 10px
       display none
+      width 54px
     span
       color #999999
-      font-size 22px
+      font-size 17px
     .col
       display inline-block
       vertical-align top
     .displayName
+      display block
+      font-weight bold
+      margin-left 16px
+      margin-bottom 18px
     .user
       display block
-      margin-left 10px
-      margin-bottom 18px
+      margin-left 16px
+      margin-bottom 10px
     .incomingCallTitle
       display block
       padding 8px
       font-size 18px
-      font-weight bold
-      background #3c3c3c
+      background #3DA005
       margin-bottom 18px
-      color #E4E4E4
+      color #FFFFFF
     .reject
-      background #FF0000
+      background #EC1F1F
+    .accept
+      background #3DA005
+    .acceptAudio
+      background #03AFEF
     #rejectContainer
       text-align right
 
@@ -39,7 +48,7 @@
     &:not(.started).hasRemoteVideo .accept,
     &:not(.started) .acceptAudio,
     & .reject
-      display block
+      display inline-block
 
     &.incomingcall-shown
       {fadeInPopup}
