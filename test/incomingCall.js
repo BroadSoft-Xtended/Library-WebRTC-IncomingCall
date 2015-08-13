@@ -11,7 +11,7 @@ describe('incomingcall', function() {
       sipstack: require('webrtc-sipstack'),
       sound: require('webrtc-sound')
     });
-    eventbus = bdsft_client_instances.test.eventbus;
+    eventbus = bdsft_client_instances.test.core.eventbus;
   });
   afterEach(function(){
     incomingcall.reject();

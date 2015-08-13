@@ -2,9 +2,7 @@
 
 Handles incoming calls.
 
-Model : bdsft_webrtc.default.incomingcall
-
-View : bdsft_webrtc.default.incomingcallview
+Namespace : bdsft_webrtc.default.incomingcall
 
 Dependencies : [SIP Stack](https://github.com/BroadSoft-Xtended/Library-WebRTC-SIPStack), [Sound](https://github.com/BroadSoft-Xtended/Library-WebRTC-Sound)
 
